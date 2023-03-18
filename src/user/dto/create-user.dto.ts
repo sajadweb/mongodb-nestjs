@@ -11,3 +11,10 @@ export class CreateUserDto {
   password: string;
   device: any;
 }
+
+export class LoginUserDto {
+  @ApiProperty({ example: 'sajadweb9@gmail.com' })
+  email: string;
+  @ApiProperty({ example: 'sajjad' })
+  password: string;
+}

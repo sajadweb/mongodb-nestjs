@@ -1,4 +1,4 @@
-import { DeviceParam } from './../ip-param/ip-param.decorator';
+import { DeviceParam } from '../../ip-param/ip-param.decorator';
 import {
   Controller,
   Get,
@@ -12,15 +12,21 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from '../services/user.service';
+import { CreateUserDto, LoginUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { IpParam } from '../ip-param/ip-param.decorator';
+import { IpParam } from '../../ip-param/ip-param.decorator';
 @ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Post('/login')
+  @HttpCode(203)
+  login(@Body() createUserDto: LoginUserDto) {
+    return this.userService.login(createUserDto.email, createUserDto.password);
+  }
 
   @Post()
   @HttpCode(203)
