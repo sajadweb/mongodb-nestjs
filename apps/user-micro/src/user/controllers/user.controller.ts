@@ -1,4 +1,4 @@
-import { DeviceParam } from '../../ip-param/ip-param.decorator';
+import { IpParam, DeviceParam } from '@libs/common';
 import {
   Controller,
   Get,
@@ -16,7 +16,7 @@ import { UserService } from '../services/user.service';
 import { CreateUserDto, LoginUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { IpParam } from '../../ip-param/ip-param.decorator';
+
 @ApiTags('User')
 @Controller('user')
 export class UserController {
