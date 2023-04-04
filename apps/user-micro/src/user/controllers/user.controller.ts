@@ -16,41 +16,39 @@ import { UserService } from '../services/user.service';
 import { CreateUserDto, LoginUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
-@ApiTags('User')
-@Controller('user')
+@Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('/login')
-  @HttpCode(203)
-  login(@Body() createUserDto: LoginUserDto) {
+  @MessagePattern('login')
+  login(@Payload() createUserDto: LoginUserDto) {
     return this.userService.login(createUserDto.email, createUserDto.password);
   }
 
-  @Post()
-  @HttpCode(203)
-  create(@DeviceParam() device: string, @Body() createUserDto: CreateUserDto) {
-    return this.userService.create({ ...createUserDto, device });
+  @MessagePattern('create')
+  create(@Payload() createUserDto: CreateUserDto) {
+    return this.userService.create({ ...createUserDto });
   }
 
-  @Get()
+  @MessagePattern('find.all')
   findAll() {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @MessagePattern('find.one')
+  findOne(@Payload('id') id: string) {
     return this.userService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  @MessagePattern('update')
+  update(@Payload('id') id: string, @Payload() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @MessagePattern('delete')
+  remove(@Payload('id') id: string) {
     return this.userService.remove(id);
   }
 }

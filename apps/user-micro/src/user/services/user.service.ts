@@ -38,6 +38,7 @@ export class UserService {
   }
 
   findAll() {
+    console.log('find all in user microservice');
     return this.users.find();
   }
 
