@@ -5,12 +5,14 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { User, UserDocument } from '@libs/schema';
 import * as bcrypt from 'bcrypt';
+import { EmailEmiter } from '../queue/email.emit';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name)
     private users: Model<UserDocument>,
+    private emit: EmailEmiter,
   ) {}
   async create({ password, ...data }: CreateUserDto) {
     const hash = await this.hash(password);
@@ -18,7 +20,9 @@ export class UserService {
     const user = await model.save();
     // const user = await this.users.create([createUserDto]);
     delete user.password;
-    return user;
+    this.emit.emitEmail(user);
+    // this.emit.emitToDb(model);
+    return model;
   }
   async login(email: string, password: string) {
     let user = await this.users
