@@ -11,11 +11,12 @@ async function bootstrap() {
   hbs.registerPartials(
     join(__dirname, '../../..', '/resources/view/partials/'),
   );
-  hbs.registerHelper('toFixed', function (str: number) {
+  hbs.registerHelper('toFixed', function (str: number | string) {
     if (!str) {
       return '0.0';
     }
-    return str.toFixed(1);
+    if (typeof str === 'number') return str.toFixed(1);
+    return parseFloat(str).toFixed(1);
   });
   hbs.registerHelper('toDate', function (date: string) {
     const d = new Date(date);

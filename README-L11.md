@@ -50,3 +50,6 @@ npm install hbs
     return `${d.getMonth()} ${d.getDate()},${d.getFullYear()}`;
   });
 ```
+## Links
+https://expressjs.com/en/resources/template-engines.html
+https://handlebarsjs.com/guide/#partials
