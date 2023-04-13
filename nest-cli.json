@@ -52,6 +52,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/user-micro/tsconfig.app.json"
       }
+    },
+    "view": {
+      "type": "application",
+      "root": "apps/view",
+      "entryFile": "main",
+      "sourceRoot": "apps/view/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/view/tsconfig.app.json"
+      }
     }
   },
   "monorepo": true,

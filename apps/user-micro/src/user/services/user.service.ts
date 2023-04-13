@@ -31,11 +31,11 @@ export class UserService {
       // .select({ password: 0, device: 0 })
       .exec();
     if (!user) {
-      throw new BadRequestException('Opps! email not found');
+      return { error: 'Opps! email not found' };
     }
     user = user.toObject();
     if (!(await this.compare(password, user?.password))) {
-      throw new BadRequestException('Opps!email and password not valid');
+      return { error: 'Opps!email and password not valid' };
     }
     delete user.password;
     return { ...user };
