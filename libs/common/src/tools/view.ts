@@ -14,3 +14,6 @@ export const views = (res: Response, name: string, data: any) => {
     ...data,
   });
 };
+export const redirect = (res: Response, link: string) => {
+  return res.redirect(link);
+};

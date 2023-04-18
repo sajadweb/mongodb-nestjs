@@ -1,12 +1,12 @@
 declare const module: any;
 import { NestFactory } from '@nestjs/core';
-import { PostMicroModule } from './post-micro.module';
+import { AppModule } from './app.module';
 import { PostMicroConfig as opts } from '@libs/common';
 import { MicroserviceOptions } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    PostMicroModule,
+    AppModule,
     opts(),
   );
   await app.listen();

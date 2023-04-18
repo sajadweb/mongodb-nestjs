@@ -7,4 +7,11 @@ export class UserService {
   login(data: any) {
     return this.user.login(data);
   }
+  listUser() {
+    return this.user.findAll();
+  }
+
+  signUp(data: any) {
+    return this.user.create(data);
+  }
 }

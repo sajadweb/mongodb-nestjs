@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
-import { getEnvironments } from '@libs/common';
+import { AuthModule, PostProxyModule, getEnvironments } from '@libs/common';
 import { HomeModule } from './home/home.module';
 import { UserProxyModule } from '@libs/common';
 
@@ -9,6 +9,8 @@ import { UserProxyModule } from '@libs/common';
   imports: [
     getEnvironments(),
     UserProxyModule,
+    PostProxyModule,
+    AuthModule,
     UserModule,
     PostModule,
     HomeModule,

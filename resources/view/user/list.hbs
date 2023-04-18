@@ -1,0 +1,20 @@
+ <p style="font-weight: bold; margin-top: 20px;">User List</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">email</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users }}
+    <tr>
+      <th scope="row">{{this._id}}</th>
+      <td>{{this.username}}</td>
+      <td>{{this.email}}</td>
+    </tr>
+   {{/each}}
+  </tbody>
+</table>

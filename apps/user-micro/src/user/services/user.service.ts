@@ -15,30 +15,34 @@ export class UserService {
     private emit: EmailEmiter,
   ) {}
   async create({ password, ...data }: CreateUserDto) {
-    const hash = await this.hash(password);
-    const model = new this.users({ ...data, password: hash });
-    const user = await model.save();
-    // const user = await this.users.create([createUserDto]);
-    delete user.password;
-    this.emit.emitEmail(user);
-    // this.emit.emitToDb(model);
-    return model;
+    try {
+      const hash = await this.hash(password);
+      const model = new this.users({ ...data, password: hash });
+      const user = await model.save();
+      // const user = await this.users.create([createUserDto]);
+      delete user.password;
+      this.emit.emitEmail(user);
+      // this.emit.emitToDb(model);
+      return { error: false, data: model };
+    } catch (error) {
+      return { error: true, message: error?.messages };
+    }
   }
   async login(email: string, password: string) {
     let user = await this.users
       .findOne({ email })
-      .select('password name username')
+      .select('password name username email')
       // .select({ password: 0, device: 0 })
       .exec();
     if (!user) {
-      return { error: 'Opps! email not found' };
+      return { error: true, message: 'Opps! email not found' };
     }
     user = user.toObject();
     if (!(await this.compare(password, user?.password))) {
-      return { error: 'Opps!email and password not valid' };
+      return { error: true, message: 'Opps!email and password not valid' };
     }
     delete user.password;
-    return { ...user };
+    return { error: false, data: user };
   }
 
   findAll() {

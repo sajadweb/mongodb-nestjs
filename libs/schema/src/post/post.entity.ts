@@ -6,6 +6,8 @@ export type PostDocument = Post & Document;
   versionKey: false,
 })
 export class Post {
+  @Prop({ required: false, default: null })
+  image: string;
   @Prop({ required: false, index: false, unique: false })
   title: string;
   @Prop({ required: false, index: true, unique: true })
